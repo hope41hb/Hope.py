@@ -51,7 +51,7 @@ class Book:
           return False
 
       def borrow(self, name, book_title):
-          name = name.lower()
+          name = name.strip().lower()
           book_browsed = book_title.strip().lower()
 
           # 找到这个用户对象
@@ -106,13 +106,24 @@ class Book:
 
       def get_all_books_status(self):
           rows = []
-          #如果书还在
-          for book in self.library_book:
-              rows.append((book, "Available"))
-          #如果书被借走了
+
+          # 先收集所有已借出的书
+          borrowed = {}  # key: normalized title(original_title, borrower_name)
           for member in self.library_tasks:
-              for book in member.book:
-                  rows.append((book, f"Borrowed by {member.name}"))
+              for b in member.book:
+                  key = b.strip().lower()
+                  borrowed[key] = (b, member.name)
+
+          # 显示 Available：只显示那些“不在 borrowed 里”的馆藏书
+          for b in self.library_book:
+              key = b.strip().lower()
+              if key not in borrowed:
+                  rows.append((b, "Available"))
+
+          # 显示 Borrowed：显示所有借出书
+          for title, borrower in borrowed.items():
+              rows.append((title, f"Borrowed by {borrower}"))
+
           return rows
 
 
