@@ -1,4 +1,4 @@
-# importing the nessary imoprts
+# importing the necessary  imports
 import tkinter as tk
 import math
 import re
@@ -37,7 +37,7 @@ class CalculatorApp:
             'Exit', '⌫', '(', ')', '='
         ]
 
-        # create and place the buttons and its colour
+        # create and place the buttons and its color
         self.create_buttons(self.root, buttons)
         self.configure_grid(self.root)
         self.display.configure(bg="#FAF6F7", fg="#FFD1DC")
@@ -63,8 +63,10 @@ class CalculatorApp:
             else:
                 btn = tk.Button(root, text=button, font=('Times New Roman', 20), padx=20, pady=20,
                                 command=lambda b=button: self.on_button_click(b))
+            #Each button press moves the character one space to the right.
             btn.grid(row=row_val, column=col_val, sticky="nsew")
             col_val += 1
+            #If there are more than 5 buttons on a line, wrap to a new line
             if col_val > 4:
                 col_val = 0
                 row_val += 1
@@ -129,6 +131,7 @@ class CalculatorApp:
         expression = expression.replace("tan", "math.tan(math.radians")
         expression = expression.replace("log", "math.log10")
         expression = expression.replace("ln", "math.log")
+
 
         # add closing parentheses for trigonometric functions
         for func in ["sin", "cos", "tan"]:
