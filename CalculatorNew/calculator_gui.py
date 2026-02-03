@@ -1,3 +1,5 @@
+#when you using the calculator, square root, trigonometric and inverse trigonometric need to add "()"
+
 # importing the necessary imports
 import tkinter as tk
 from calculator_logic import CalculatorLogic
