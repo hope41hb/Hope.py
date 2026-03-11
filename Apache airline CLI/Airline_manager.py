@@ -22,12 +22,13 @@ class AirlineManager:
         for row in ["A","B","C","D","E","F"]:
             for num in range(1,81):
                 seat_number = f"{num}{row}"
+                drink = None
                 if row in ["D","E","F"] and num in[77,78]:
                     seat_status = "S"
                 else:
                     seat_status = "F"
 
-                self.airline_tasks.append(airline_task(seat_number, seat_status))
+                self.airline_tasks.append(airline_task(seat_number, seat_status, drink))
 
 
     def find_seat(self, seat_number):
@@ -89,6 +90,24 @@ class AirlineManager:
             return "No seats are currently booked."
 
         return "Booked seats:" + "\n".join(booked)
+
+    # Check seat status and add drinks
+    def drink(self, seat_number, drink):
+        seat = self.find_seat(seat_number)
+        # If there is a passenger in this seat
+        if seat.seat_status == "R":
+           seat.drink = drink
+           self.save()
+           return "Drink successfully"
+        
+        # If this seat is empty
+        elif seat.seat_status == "F":
+             return "There is no one in this seat"
+        
+        #if this seat is a storage
+        elif seat.seat_status == "S":
+             return "This seat is a storage area"
+
 
     #Save all seat data to JSON file
     def save(self):
