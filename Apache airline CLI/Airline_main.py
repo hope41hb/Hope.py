@@ -14,7 +14,8 @@ class main:
           print("2. Book a seat")
           print("3. Free a seat")
           print("4. Booking status")
-          print("5. Exit")
+          print("5. Choosing drink")
+          print("6. Exit")
 
           #Get user input and remove extra spaces
           choice = input("Enter your choice:").strip()
@@ -38,8 +39,14 @@ class main:
           elif choice == "4":
               print(todo.show_booking())
 
-          #Option 5: Exit program
+          #Option 5: Choosing drink
           elif choice == "5":
+              num = input("Which seats:").strip().upper()
+              drink = input("What drinks do you want? Coke/ Apple juice/ Orange juice/ sparkling water").strip()
+              print(todo.drink(num,drink))
+
+          #Option 6: Exit program
+          elif choice == "6":
               print("Goodbye.")
               break
 
